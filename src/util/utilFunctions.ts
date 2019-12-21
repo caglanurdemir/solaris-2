@@ -16,6 +16,12 @@ export interface Creature {
     id: string;
 }
 
+export interface LastDaysCounts {
+    aliveCount: number;
+    deadCount: number;
+    unknownCount: number;
+}
+
 const solarisData = solarisJSON as Array<Array<any>>;
 
 export function getTimeInterval(): string {
@@ -63,4 +69,44 @@ export function getDailyStats(): DailyStats[] {
     })
 
     return dailyStats;
+}
+
+export function getLastSyncTime(): string {
+    let dateList: string[] = [];
+
+    solarisData.forEach((item) => {
+        dateList.push(moment(item[0]).format("DD.MM.YYYY"));
+    })
+
+    return dateList[dateList.length - 1];
+}
+
+export function getLastDaysCounts(): LastDaysCounts {
+    let lastDaysData: Creature[] = solarisData[solarisData.length - 1][1];
+
+    let aliveCount = 0;
+    let deadCount = 0;
+    let unknownCount = 0;
+
+    lastDaysData.forEach((creature) => {
+        switch (creature.status) {
+            case "alive":
+                aliveCount++;
+                break;
+            case "dead":
+                deadCount++;
+                break;
+            case "unknown":
+                unknownCount++;
+                break;
+        }
+    });
+
+    let lastDaysCountsObject: LastDaysCounts = {
+        aliveCount: aliveCount,
+        deadCount: deadCount,
+        unknownCount: unknownCount
+    }
+
+    return lastDaysCountsObject;
 }

@@ -1,12 +1,13 @@
-import { Breadcrumb, Layout, Menu, Row, Col } from 'antd';
+import { Breadcrumb, Col, Layout, Menu, Row } from 'antd';
 import 'antd/dist/antd.css';
 import React from 'react';
+import Card from '../card/Card';
 import CreatureStatusChart from '../charts/creature-status-chart/CreatureStatusChart';
 import './App.css';
+import { getLastSyncTime, getLastDaysCounts } from '../../util/utilFunctions';
 
 
 class App extends React.Component {
-
   render() {
     return (
       <>
@@ -25,16 +26,16 @@ class App extends React.Component {
               <Breadcrumb.Item>Solaris 2</Breadcrumb.Item>
               <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
             </Breadcrumb>
-
-            <Row>
-              <Col span={6}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, debitis voluptatum? Ab, aspernatur at officia eligendi ipsam, dolores, molestias sed suscipit debitis ratione facere explicabo modi eaque obcaecati perspiciatis optio.</Col>
-              <Col span={6}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, debitis voluptatum? Ab, aspernatur at officia eligendi ipsam, dolores, molestias sed suscipit debitis ratione facere explicabo modi eaque obcaecati perspiciatis optio.</Col>
-              <Col span={6}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, debitis voluptatum? Ab, aspernatur at officia eligendi ipsam, dolores, molestias sed suscipit debitis ratione facere explicabo modi eaque obcaecati perspiciatis optio.</Col>
-              <Col span={6}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, debitis voluptatum? Ab, aspernatur at officia eligendi ipsam, dolores, molestias sed suscipit debitis ratione facere explicabo modi eaque obcaecati perspiciatis optio.</Col>
+            <Row gutter={16}>
+              <Card className="gutter-row" iconBackgroundColor="#778beb" iconName="faCalendarAlt" title={getLastSyncTime()} subtitle="Last update time" />
+              <Card className="gutter-row" iconBackgroundColor="#ea8685" iconName="faHeart" title={getLastDaysCounts().aliveCount.toString()} subtitle="Alive Creatures" />
+              <Card className="gutter-row" iconBackgroundColor="#596275" iconName="faDizzy" title={getLastDaysCounts().deadCount.toString()} subtitle="Dead Creatures" />
+              <Card className="gutter-row" iconBackgroundColor="#f7d794" iconName="faQuestion" title={getLastDaysCounts().unknownCount.toString()} subtitle="Unknown Creatures" />
             </Row>
-            <Row>
-              <Col span={12}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum iusto ipsam dolore incidunt eius perferendis distinctio dolorum, aliquam odio in modi quis ea culpa iure placeat voluptatem vero, asperiores nesciunt!</Col>
-              <Col span={12}>
+            <Row style={{ marginTop: "32px" }} gutter={16}>
+              <Col className="gutter-row" span={12}>
+              </Col>
+              <Col className="gutter-row" span={12}>
                 <CreatureStatusChart />
               </Col>
             </Row>

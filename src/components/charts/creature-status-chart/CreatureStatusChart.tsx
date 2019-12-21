@@ -41,9 +41,9 @@ class CreatureStatusChart extends React.Component<{}, CreatureStatusChartState> 
                                 return [value, "Unknown"]
                         }
                     }} />
-                    <Bar label="Alive" dataKey="aliveCount" fill="#00a8ff" />
-                    <Bar label="Dead" dataKey="deadCount" fill="#487eb0" />
-                    <Bar label="Unknown" dataKey="unknownCount" fill="#7f8fa6" />
+                    <Bar label="Alive" dataKey="aliveCount" fill="#778BEB" />
+                    <Bar label="Dead" dataKey="deadCount" fill="#AFBEF9" />
+                    <Bar label="Unknown" dataKey="unknownCount" fill="#E4EBFE" />
                 </BarChart>
             </>
         );
