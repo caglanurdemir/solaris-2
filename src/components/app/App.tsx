@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
 
-const App: React.FC = () => {
-  return (
-    <div className="App" />
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <>
+      </>
+    );
+  }
 }
 
 export default App;
