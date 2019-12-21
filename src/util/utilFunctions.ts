@@ -22,13 +22,13 @@ export interface LastDaysCounts {
     unknownCount: number;
 }
 
-const solarisData = solarisJSON as Array<Array<any>>;
+export const solarisData = solarisJSON as Array<Array<any>>;
 
 export function getTimeInterval(): string {
     let dateList: string[] = [];
 
     solarisData.forEach((item) => {
-        dateList.push(moment(item[0]).format("DD-MM-YYYY"));
+        dateList.push(moment(item[0]).format("DD.MM.YYYY"));
     })
 
     return `You are viewing data from ${dateList[0]} to ${dateList[dateList.length - 1]}`
@@ -38,7 +38,7 @@ export function getDailyStats(): DailyStats[] {
     let dailyStats: DailyStats[] = [];
 
     solarisData.forEach((dailyData: Array<any>) => {
-        let date = moment(dailyData[0]).format("DD-MM-YYYY");
+        let date = moment(dailyData[0]).format("DD.MM.YYYY");
 
         let aliveCount = 0;
         let deadCount = 0;
@@ -109,4 +109,13 @@ export function getLastDaysCounts(): LastDaysCounts {
     }
 
     return lastDaysCountsObject;
+}
+
+export function getTableDataByDate(): Creature[] {
+    return solarisData[0][1];
+}
+
+export function capitalize(s): string {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
 }
