@@ -8,7 +8,7 @@ class StatsTab extends React.Component<{}, {}> {
     render() {
         return (
             <>
-                <Row style={{ marginTop: "32px" }} gutter={16}>
+                <Row gutter={16}>
                     <Col className="gutter-row" span={24}>
                         <CreatureDietChart />
                     </Col>

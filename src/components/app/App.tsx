@@ -1,3 +1,5 @@
+import * as FontAwesomeIcons from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Layout, notification, Select, Tabs } from 'antd';
 import 'antd/dist/antd.css';
 import moment from 'moment';
@@ -6,6 +8,7 @@ import { DateSelectOption, getDateOptions, getSelectedDaysCounts, SelectedDaysCo
 import DailyTab from '../tabs/dailyTab/DailyTab';
 import StatsTab from '../tabs/statsTab/StatsTab';
 import './App.css';
+
 
 interface AppState {
   currentTab: string;
@@ -57,7 +60,7 @@ class App extends React.Component<{}, AppState> {
                 this.state.currentTab === "0" ? <div style={{
                   float: "right",
                   padding: "0px 0px 16px 0px"
-                }}>
+                }} className="extra-content">
                   {"You are viewing datas from: "}
                   <Select defaultValue={selectedDate} style={{ width: 120 }} onChange={(value) => {
                     this.setState({
@@ -78,10 +81,22 @@ class App extends React.Component<{}, AppState> {
                   currentTab: activeKey
                 })
               }}>
-              <Tabs.TabPane tab="Daily View" key="0">
+              <Tabs.TabPane
+                tab={
+                  <>
+                    <FontAwesomeIcon style={{ marginRight: "8px" }} icon={FontAwesomeIcons.faCalendarDay} /> Daily View
+                  </>
+                }
+                key="0">
                 <DailyTab selectedDate={selectedDate} cardStats={cardStats} />
               </Tabs.TabPane>
-              <Tabs.TabPane tab="Stats" key="1">
+              <Tabs.TabPane
+                tab={
+                  <>
+                    <FontAwesomeIcon style={{ marginRight: "8px" }} icon={FontAwesomeIcons.faChartPie} /> Stats
+                  </>
+                }
+                key="1">
                 <StatsTab />
               </Tabs.TabPane>
             </Tabs>

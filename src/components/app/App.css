@@ -56,7 +56,7 @@
   }
 
   10% {
-    transform: scale(0.90);
+    transform: scale(0.98);
     box-shadow: 0 0 0 0 rgba(189, 195, 199, 0.2);
   }
 
@@ -74,4 +74,39 @@
   background-color: #2f3640;
   color: #ffffff;
   font-weight: 500;
+}
+
+.radio-group {
+  padding: 0px 32px 32px 32px;
+}
+
+.line-chart-background {
+  background-color: white;
+  border-radius: 8px;
+  border: 0px;
+}
+
+.chart-centerer {
+  text-align: center;
+  text-align: -webkit-center;
+}
+
+.extra-content {
+  animation: pulse-white 1.5s 2;
+}
+
+@keyframes pulse-white {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
 }
