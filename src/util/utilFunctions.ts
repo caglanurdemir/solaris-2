@@ -1,6 +1,7 @@
 import moment from "moment";
 import solarisJSON from "../db.json";
 
+
 export interface DailyStats {
     date: string;
     aliveCount: number;
@@ -16,7 +17,7 @@ export interface Creature {
     id: string;
 }
 
-export interface LastDaysCounts {
+export interface SelectedDaysCounts {
     aliveCount: number;
     deadCount: number;
     unknownCount: number;
@@ -76,44 +77,38 @@ export function getDailyStats(): DailyStats[] {
     return dailyStats;
 }
 
-export function getLastSyncTime(): string {
-    let dateList: string[] = [];
-
-    solarisData.forEach((item) => {
-        dateList.push(moment(item[0]).format("DD.MM.YYYY"));
-    })
-
-    return dateList[dateList.length - 1];
-}
-
-export function getLastDaysCounts(): LastDaysCounts {
-    let lastDaysData: Creature[] = solarisData[solarisData.length - 1][1];
-
+export function getSelectedDaysCounts(selectedDate: string): SelectedDaysCounts {
+    
     let aliveCount = 0;
     let deadCount = 0;
     let unknownCount = 0;
 
-    lastDaysData.forEach((creature) => {
-        switch (creature.status) {
-            case "alive":
-                aliveCount++;
-                break;
-            case "dead":
-                deadCount++;
-                break;
-            case "unknown":
-                unknownCount++;
-                break;
+    solarisData.forEach((dailyData: Array<any>) => {
+        if (dailyData[0] === selectedDate) {
+            let creatureList: Creature[] = dailyData[1];
+            creatureList.forEach((creature: Creature) => {
+                switch (creature.status) {
+                    case "alive":
+                        aliveCount++;
+                        break;
+                    case "dead":
+                        deadCount++;
+                        break;
+                    case "unknown":
+                        unknownCount++;
+                        break;
+                }
+            });
         }
-    });
+    })
 
-    let lastDaysCountsObject: LastDaysCounts = {
+    let statsObject: SelectedDaysCounts = {
         aliveCount: aliveCount,
         deadCount: deadCount,
         unknownCount: unknownCount
     }
 
-    return lastDaysCountsObject;
+    return statsObject;
 }
 
 export function getTableDataByDate(selectedDate: string): Creature[] {

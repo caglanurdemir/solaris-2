@@ -27,7 +27,7 @@ class CreatureStatusChart extends React.Component<{}, CreatureStatusChartState> 
         const { chartData } = this.state;
         return (
             <>
-                <BarChart barSize={15} width={720} height={400} data={chartData.splice(0, 7)}>
+                <BarChart barSize={15} width={1280} height={400} data={chartData.splice(0, 7)}>
                     <CartesianGrid strokeDasharray="1 1" />
                     <XAxis dataKey="date" />
                     <YAxis />

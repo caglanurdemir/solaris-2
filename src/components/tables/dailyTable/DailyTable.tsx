@@ -111,7 +111,7 @@ class DailyTable extends React.Component<DailyTableProps, {}> {
     render() {
         const { selectedDate } = this.props;
         return (
-            <Table bordered={true} size="middle" style={{ marginTop: "32px" }} dataSource={getTableDataByDate(selectedDate)} columns={columns} />
+            <Table size="middle" style={{ marginTop: "32px" }} dataSource={getTableDataByDate(selectedDate)} columns={columns} />
         );
     }
 }
