@@ -22,16 +22,21 @@ export interface LastDaysCounts {
     unknownCount: number;
 }
 
+export interface DateSelectOption {
+    date: string;
+    parsedDate: string;
+}
+
 export const solarisData = solarisJSON as Array<Array<any>>;
 
-export function getTimeInterval(): string {
-    let dateList: string[] = [];
+export function getDateOptions(): DateSelectOption[] {
+    let dateList: DateSelectOption[] = [];
 
     solarisData.forEach((item) => {
-        dateList.push(moment(item[0]).format("DD.MM.YYYY"));
+        dateList.push({ date: item[0], parsedDate: moment(item[0]).format("DD.MM.YYYY") });
     })
 
-    return `You are viewing data from ${dateList[0]} to ${dateList[dateList.length - 1]}`
+    return dateList;
 }
 
 export function getDailyStats(): DailyStats[] {
@@ -111,11 +116,20 @@ export function getLastDaysCounts(): LastDaysCounts {
     return lastDaysCountsObject;
 }
 
-export function getTableDataByDate(): Creature[] {
-    return solarisData[0][1];
+export function getTableDataByDate(selectedDate: string): Creature[] {
+    let tableData: Creature[] = [];
+    solarisData.forEach((dailyData: Array<any>) => {
+        if (dailyData[0] === selectedDate) {
+            tableData = dailyData[1];
+        }
+    })
+    return tableData;
 }
 
 export function capitalize(s): string {
-    if (typeof s !== 'string') return ''
-    return s.charAt(0).toUpperCase() + s.slice(1)
+    if (typeof s !== 'string') {
+        return "";
+    } else {
+        return s.charAt(0).toUpperCase() + s.slice(1)
+    }
 }
