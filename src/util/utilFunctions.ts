@@ -28,6 +28,12 @@ export interface DateSelectOption {
     parsedDate: string;
 }
 
+export interface DailyDietStats {
+    date: string;
+    herbivoreCount: number;
+    carnivoreCount: number;
+}
+
 export const solarisData = solarisJSON as Array<Array<any>>;
 
 export function getDateOptions(): DateSelectOption[] {
@@ -78,7 +84,7 @@ export function getDailyStats(): DailyStats[] {
 }
 
 export function getSelectedDaysCounts(selectedDate: string): SelectedDaysCounts {
-    
+
     let aliveCount = 0;
     let deadCount = 0;
     let unknownCount = 0;
@@ -127,4 +133,35 @@ export function capitalize(s): string {
     } else {
         return s.charAt(0).toUpperCase() + s.slice(1)
     }
+}
+
+export function getDietStats(creatureStatus: string): DailyDietStats[] {
+    let chartDataList: DailyDietStats[] = [];
+
+    solarisData.forEach((dailyData: Array<any>) => {
+        let date = "";
+        let herbivoreCount = 0;
+        let carnivoreCount = 0;
+
+        date = moment(dailyData[0]).format("DD.MM.YYYY");
+        let creatureList: Creature[] = dailyData[1];
+
+        creatureList.forEach((creature: Creature) => {
+            if (creature.diet.toLowerCase() === "herbivore" && creature.status.toLowerCase() === creatureStatus) {
+                herbivoreCount++;
+            } else if (creature.diet.toLowerCase() === "carnivore" && creature.status.toLowerCase() === creatureStatus) {
+                carnivoreCount++;
+            }
+        })
+
+        let chartDataItem: DailyDietStats = {
+            date: date,
+            herbivoreCount: herbivoreCount,
+            carnivoreCount: carnivoreCount
+        };
+
+        chartDataList.push(chartDataItem);
+    })
+
+    return chartDataList;
 }
